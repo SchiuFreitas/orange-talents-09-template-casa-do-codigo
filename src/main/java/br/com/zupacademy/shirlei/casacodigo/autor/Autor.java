@@ -26,6 +26,10 @@ public class Autor {
     @NotBlank @Size(max = 400) //@Size passa o valor maximo ou mínimo da string
     private String descricao;
 
+    @Deprecated
+    public Autor() {
+    }
+
     private LocalDateTime horaDaCriacao = LocalDateTime.now(); // método now () de uma classe LocalDateTime usado para obter a data e hora atual do relógio do sistema no fuso horário padrão. Este método retornará LocalDateTime com base no relógio do sistema com fuso horário padrão para obter a data e hora atual.
 
     public Autor(String nome, String email, String descricao){

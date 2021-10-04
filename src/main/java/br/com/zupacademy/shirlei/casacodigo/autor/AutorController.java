@@ -1,10 +1,11 @@
 package br.com.zupacademy.shirlei.casacodigo.autor;
 
+import br.com.zupacademy.shirlei.casacodigo.validacao.ValidaEmailUnicoAutor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 //Controller
@@ -18,17 +19,25 @@ public class AutorController {
     @Autowired// acima do repository, injetamos todos os métodos necessários para fazer a persistência de dados que estão na JpaRepository.
     private final AutorRepository autorRepository;// instancio a interface e em seguida completo a injeção.
 
+    @Autowired
+    private ValidaEmailUnicoAutor validaEmailUnicoAutor;
+
     public AutorController(AutorRepository autorRepository){
 
         this.autorRepository = autorRepository;
     }
 
-    //@Transactional essa anotação não é necessária quando usamos o .save do repository. Seria necessária caso utilizasse outro método que não buscasse no repository
+    @InitBinder
+    public void init(WebDataBinder binder){
+        binder.addValidators(validaEmailUnicoAutor);
+    }
+
+    @Transactional // anotação não é necessária quando usamos o .save do repository. Seria necessária caso utilizasse outro método que não buscasse no repository
     @PostMapping //informa ao Rest o método responsável por atender ao verbo Http do tipo Post
-    public String created(@RequestBody @Valid NovoAutorDTO request){//@RequestBody interpreta o que está sendo passado no body em json e retorna um objeto java por padrão.
+    public ResponseEntity created(@RequestBody @Valid NovoAutorDTO request){//@RequestBody interpreta o que está sendo passado no body em json e retorna um objeto java por padrão.
         //E a @Valid que garante que as informações passadas para o objeto estão de acordo com as regras passadas na entidade.
         Autor autor = request.toModel();
         autorRepository.save(autor);
-        return autor.toString();
+        return ResponseEntity.ok().build();
     }
 }
