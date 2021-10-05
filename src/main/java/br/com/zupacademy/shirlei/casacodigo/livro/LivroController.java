@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/livros")
@@ -27,5 +28,11 @@ public class LivroController {
         Livro livro = request.converte(autorRepository, categoriaRepository);
         livroRepository.save(livro);
         return livro.toString();
+    }
+
+    @GetMapping
+    public List<LivroResponse>listaLivros(){
+        List<Livro>livros = (List<Livro>)livroRepository.findAll();
+        return LivroResponse.converte(livros);
     }
 }
