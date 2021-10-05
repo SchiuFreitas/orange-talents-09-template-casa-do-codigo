@@ -1,5 +1,7 @@
 package br.com.zupacademy.shirlei.casacodigo.autor;
 
+import br.com.zupacademy.shirlei.casacodigo.validacao.UniqueValue;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,6 +20,7 @@ public class NovoAutorDTO {
 
     @NotBlank
     @Email
+    @UniqueValue(domainClass = Autor.class, fieldName = "email", message = "Esse email já existe")
     private String email;
 
     @NotBlank

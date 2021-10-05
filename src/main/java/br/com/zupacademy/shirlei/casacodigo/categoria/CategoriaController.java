@@ -13,19 +13,19 @@ import javax.validation.Valid;
 public class CategoriaController {
 
     @Autowired
-    private CategoriaRepository categoriaRepository;
-
-    @Autowired
-    private ValidaNomeCategoria validaNomeCategoria;
+    private final CategoriaRepository categoriaRepository;
 
     public CategoriaController(CategoriaRepository categoriaRepository){
         this.categoriaRepository = categoriaRepository;
     }
 
-    @InitBinder
-    public void init(WebDataBinder binder){
-        binder.addValidators(validaNomeCategoria);
-    }
+//    @Autowired
+//    private ValidaNomeCategoria validaNomeCategoria;
+//
+//    @InitBinder
+//    public void init(WebDataBinder binder){
+//        binder.addValidators(validaNomeCategoria);
+//    }
 
     @PostMapping
     @Transactional
