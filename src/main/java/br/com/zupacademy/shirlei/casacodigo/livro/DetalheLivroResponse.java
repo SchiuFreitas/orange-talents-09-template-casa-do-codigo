@@ -28,4 +28,18 @@ public class DetalheLivroResponse {
         sumario = livro.getSumario();
         autor = new DetalheAutorResponse(livro.getAutor());
     }
+
+    @Override
+    public String toString() {
+        return "DetalheLivroResponse{" +
+                "titulo='" + titulo + '\'' +
+                ", preco=" + preco +
+                ", dataPublicacao='" + dataPublicacao + '\'' +
+                ", numeroPaginas=" + numeroPaginas +
+                ", ISBN='" + ISBN + '\'' +
+                ", resumo='" + resumo + '\'' +
+                ", sumario='" + sumario + '\'' +
+                ", autor=" + autor +
+                '}';
+    }
 }

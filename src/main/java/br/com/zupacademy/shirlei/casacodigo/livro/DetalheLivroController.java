@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -15,24 +14,14 @@ import java.util.Optional;
 public class DetalheLivroController {
 
     @Autowired
-    private final LivroRepository livroRepository;
+    private LivroRepository livroRepository;
 
-    public DetalheLivroController(LivroRepository livroRepository) {
-
-        this.livroRepository = livroRepository;
-    }
-
-    @GetMapping("/livros")
-    public List<LivroResponse> listaTodosLivrosCadastrados() {
-        List<Livro> livros = (List<Livro>) livroRepository.findAll();
-        return LivroResponse.converte(livros);
-    }
-
-    @GetMapping("/livros/{id}")
+    @GetMapping(value= "/{id}")
     public ResponseEntity<?> detalhaLivro(@PathVariable("id") Long id) {
         Optional<Livro> livroOptional = livroRepository.findById(id);
         if (livroOptional.isPresent()) {
-            return ResponseEntity.ok(new DetalheLivroResponse(livroOptional.get()));
+            DetalheLivroResponse detalheSiteLivroResponse = new DetalheLivroResponse(livroOptional.get());
+            return ResponseEntity.ok(detalheSiteLivroResponse);
         }
         return ResponseEntity.notFound().build();
     }
