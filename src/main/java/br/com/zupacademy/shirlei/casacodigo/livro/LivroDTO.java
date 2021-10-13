@@ -65,6 +65,7 @@ public class LivroDTO {
         this.idAutor = idAutor;
     }
 
+
     public Livro converte(AutorRepository autorRepository, CategoriaRepository categoriaRepository){
         @NotNull Optional<Autor> autor = autorRepository.findById(this.idAutor);
         @NotNull Optional<Categoria> categoria = categoriaRepository.findById(this.idCategoria);

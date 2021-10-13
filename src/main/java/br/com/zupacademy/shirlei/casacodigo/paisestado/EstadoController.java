@@ -1,5 +1,6 @@
 package br.com.zupacademy.shirlei.casacodigo.paisestado;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,8 +12,11 @@ import javax.validation.Valid;
 @RestController
 class EstadoController {
 
-    private final EstadoRepository estadoRepository;
-    private final PaisRepository paisRepository;
+    @Autowired
+    private EstadoRepository estadoRepository;
+
+    @Autowired
+    private PaisRepository paisRepository;
 
     public EstadoController(EstadoRepository estadoRepository, PaisRepository paisRepository) {
         this.estadoRepository = estadoRepository;

@@ -6,7 +6,6 @@ import com.sun.istack.NotNull;
 import javax.validation.constraints.NotBlank;
 import java.util.Optional;
 
-@ValidaEstadoPais(entity = Estado.class)
 public class EstadoDTO {
 
     @NotBlank(message = "O campo nome não pode estar vazio")
